@@ -67,7 +67,7 @@ export default function Teachers() {
 				method: mode === 'add' ? 'POST' : 'PUT',
 				headers: {
 					Authorization: `Bearer ${token}`,
-					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(teacher),
 			},

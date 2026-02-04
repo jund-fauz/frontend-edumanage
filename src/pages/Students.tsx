@@ -78,11 +78,11 @@ export default function Students() {
 				method: mode === 'add' ? 'POST' : 'PUT',
 				headers: {
 					Authorization: `Bearer ${token}`,
-					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(student),
 			},
-		).catch((error) => console.log(error))
+		).then(res => res.json()).then(data => console.log(data)).catch((error) => console.log(error))
 		setStudents(
 			mode === 'add'
 				? [...students, student]
@@ -103,7 +103,6 @@ export default function Students() {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`,
-					'Access-Control-Allow-Origin': '*',
 				},
 			},
 		).catch((error) => console.log(error))
