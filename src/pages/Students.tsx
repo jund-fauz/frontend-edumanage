@@ -82,7 +82,7 @@ export default function Students() {
 				},
 				body: JSON.stringify(student),
 			},
-		).then(res => res.json()).then(data => console.log(data)).catch((error) => console.log(error))
+		).catch((error) => console.log(error))
 		setStudents(
 			mode === 'add'
 				? [...students, student]
