@@ -71,7 +71,7 @@ export default function Students() {
 			return
 		}
 		setLoading(true)
-		setStudent({...student, classroom_id: classroom?.id as number})
+		setStudent({...student, classroom_id: (classroom as Classroom).id as number})
 		fetch(
 			`${import.meta.env.VITE_BASE_URL}/api/students${mode === 'edit' && `/${student.id}`}`,
 			{
@@ -116,7 +116,7 @@ export default function Students() {
 	useEffect(() => {
 		const fetchStudent = async () => {
 			fetch(
-				`${import.meta.env.VITE_BASE_URL}/api/classroom`,
+				`${import.meta.env.VITE_BASE_URL}/api/students?classroom_id=${query.get('id')}`,
 				{
 					headers: {
 						Accept: 'application/json',

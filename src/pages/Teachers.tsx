@@ -57,7 +57,10 @@ export default function Teachers() {
 	const add = (e: SubmitEvent) => {
 		e.preventDefault()
 		setLoading(true)
-		setTeacher({ ...teacher, classroom_id: classroom?.id as number })
+		setTeacher({
+			...teacher,
+			classroom_id: (classroom as Classroom).id as number,
+		})
 		fetch(
 			`${import.meta.env.VITE_BASE_URL}/api/teachers${mode === 'edit' && `/${teacher?.id}`}`,
 			{
