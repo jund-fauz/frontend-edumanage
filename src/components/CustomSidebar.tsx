@@ -28,7 +28,7 @@ import {
 } from './ui/sidebar'
 import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
 import { Classroom, User } from '@/lib/types'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -46,11 +46,24 @@ export function CustomSidebar({
 	const [classrooms, setClassrooms] = useState<Classroom[] | null>(null)
 	const pathname = useLocation().pathname
 	const [query, setQuery] = useSearchParams()
+	const navigate = useNavigate()
 
-	useEffect(() => console.log(classrooms), [classrooms])
+	const logout = () => {
+		fetch(`${import.meta.env.VITE_BASE_URL}/api/logout`, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			}).then(res => {
+				if (res.ok) {
+					localStorage.removeItem('token')
+					navigate('/login')
+				}
+			})
+	}
 
 	useEffect(() => {
-		if (!query.get('id'))
+		if (!query.get('id') && pathname !== '/')
 			setQuery({
 				id: '1',
 			})
@@ -179,7 +192,7 @@ export function CustomSidebar({
 									</SidebarMenuButton>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent side='right'>
-									<DropdownMenuItem>Logout</DropdownMenuItem>
+									<DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</SidebarMenuItem>
