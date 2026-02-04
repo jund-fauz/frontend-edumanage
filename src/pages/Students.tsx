@@ -73,7 +73,7 @@ export default function Students() {
 		setLoading(true)
 		setStudent({...student, classroom_id: (classroom as Classroom).id as number})
 		fetch(
-			`${import.meta.env.VITE_BASE_URL}/api/students${mode === 'edit' && `/${student.id}`}`,
+			`${import.meta.env.VITE_BASE_URL}/api/students${mode === 'edit' ? `/${student.id}` : ''}`,
 			{
 				method: mode === 'add' ? 'POST' : 'PUT',
 				headers: {
@@ -98,7 +98,7 @@ export default function Students() {
 	const deleteStudent = () => {
 		setLoading(true)
 		fetch(
-			`${import.meta.env.VITE_BASE_URL}/api/students${mode === 'edit' && `/${student?.id}`}`,
+			`${import.meta.env.VITE_BASE_URL}/api/students/${student?.id}`,
 			{
 				method: 'DELETE',
 				headers: {

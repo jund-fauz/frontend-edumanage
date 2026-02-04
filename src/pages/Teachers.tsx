@@ -62,7 +62,7 @@ export default function Teachers() {
 			classroom_id: (classroom as Classroom).id as number,
 		})
 		fetch(
-			`${import.meta.env.VITE_BASE_URL}/api/teachers${mode === 'edit' && `/${teacher?.id}`}`,
+			`${import.meta.env.VITE_BASE_URL}/api/teachers${mode === 'edit' ? `/${teacher?.id}` : ''}`,
 			{
 				method: mode === 'add' ? 'POST' : 'PUT',
 				headers: {
@@ -87,7 +87,7 @@ export default function Teachers() {
 	const deleteTeacher = () => {
 		setLoading(true)
 		fetch(
-			`${import.meta.env.VITE_BASE_URL}/api/teachers${mode === 'edit' && `/${teacher?.id}`}`,
+			`${import.meta.env.VITE_BASE_URL}/api/teachers/${teacher?.id}`,
 			{
 				method: 'DELETE',
 				headers: {
